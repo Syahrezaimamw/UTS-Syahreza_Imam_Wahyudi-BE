@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
 import Transaksi from "./TransaksiModels.js";
-const User = db.define(
-    'User',{
+const Admin = db.define(
+    'Admin',{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -13,36 +13,30 @@ const User = db.define(
         type:DataTypes.STRING,
         allowNull:false,
     },
-    telephone:{
-        type:DataTypes.STRING,
-        allowNull:false,
-    },
     email:{
         type:DataTypes.STRING,
         allowNull:false,
     },
-    address:{
+    password:{
         type:DataTypes.STRING,
         allowNull:false,
     },
-    
 },
 {
-    tableName:'user'
+    tableName:'admin'
 }
 )
 
-User.hasMany(Transaksi,{
+Admin.hasMany(Transaksi,{
     onDelete:'CASCADE',
     onUpdate:'CASCADE',
 })
 
-Transaksi.belongsTo(User,{
-    foreignKey: 'UserId',
+Transaksi.belongsTo(Admin,{
+    foreignKey: 'AdminId',
     onDelete:'CASCADE',
     onUpdate:'CASCADE',
 })
 
 
-
-export default User
+export default Admin

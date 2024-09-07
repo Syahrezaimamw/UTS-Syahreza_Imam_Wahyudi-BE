@@ -1,7 +1,6 @@
 import db from "./utils/connection.js";
-import User from "./models/UserModels.js";
-import Book from "./models/BookModels.js";
 import express from 'express';
+import './models/index.js'
 
 const app =express()
 
