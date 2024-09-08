@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
-import Transaksi from "./TransaksiModels.js";
+import Peminjaman from "./PeminjamanModels.js";
 const User = db.define(
     'User',{
     id:{
@@ -9,7 +9,7 @@ const User = db.define(
         autoIncrement:true,
         allowNull:false,
     },
-    name:{
+    nama:{
         type:DataTypes.STRING,
         allowNull:false,
     },
@@ -21,8 +21,12 @@ const User = db.define(
         type:DataTypes.STRING,
         allowNull:false,
     },
-    address:{
+    alamat:{
         type:DataTypes.STRING,
+        allowNull:false,
+    },
+    no_ktp:{
+        type:DataTypes.INTEGER,
         allowNull:false,
     },
     
@@ -32,12 +36,12 @@ const User = db.define(
 }
 )
 
-User.hasMany(Transaksi,{
+User.hasMany(Peminjaman,{
     onDelete:'CASCADE',
     onUpdate:'CASCADE',
 })
 
-Transaksi.belongsTo(User,{
+Peminjaman.belongsTo(User,{
     foreignKey: 'UserId',
     onDelete:'CASCADE',
     onUpdate:'CASCADE',

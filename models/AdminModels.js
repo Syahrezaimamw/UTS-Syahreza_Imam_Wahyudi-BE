@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
-import Transaksi from "./TransaksiModels.js";
+import Peminjaman from "./PeminjamanModels.js";
 const Admin = db.define(
     'Admin',{
     id:{
@@ -9,7 +9,7 @@ const Admin = db.define(
         autoIncrement:true,
         allowNull:false,
     },
-    name:{
+    nama:{
         type:DataTypes.STRING,
         allowNull:false,
     },
@@ -27,12 +27,12 @@ const Admin = db.define(
 }
 )
 
-Admin.hasMany(Transaksi,{
+Admin.hasMany(Peminjaman,{
     onDelete:'CASCADE',
     onUpdate:'CASCADE',
 })
 
-Transaksi.belongsTo(Admin,{
+Peminjaman.belongsTo(Admin,{
     foreignKey: 'AdminId',
     onDelete:'CASCADE',
     onUpdate:'CASCADE',
