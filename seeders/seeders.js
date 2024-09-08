@@ -3,7 +3,6 @@ import Admin from "../models/AdminModels.js"
 import Kendaraan from "../models/KendaraanModels.js"
 import Peminjaman from "../models/PeminjamanModels.js"
 import Pengembalian from "../models/PengembalianModels.js"
-import { json } from "sequelize"
 const createSeeder = async () => {
     const user = await User.create({
         nama: 'Danish',
