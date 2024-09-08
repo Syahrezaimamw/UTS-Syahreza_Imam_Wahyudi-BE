@@ -3,7 +3,7 @@
 
 ## Deskripsi Projek 
 
-**API KelolaPeminjamanKendaraan** adalah sebuah Rest Full API yang dirancang untuk memudahkan pengelolaan data perpustakaan menggunakan Express JS sebagai framework Node.js. API ini memungkinkan pengguna untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada user, admin, kendaraan,peminjaman dan pengembalian.
+**API Kelola Peminjaman Kendaraan** adalah sebuah Rest Full API yang dirancang untuk memudahkan pengelolaan data perpustakaan menggunakan Express JS sebagai framework Node.js. API ini memungkinkan pengguna untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada user, admin, kendaraan,peminjaman dan pengembalian.
 
 
 ## Fitur
