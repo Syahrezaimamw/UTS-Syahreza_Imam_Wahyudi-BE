@@ -90,6 +90,7 @@
     Aplikasi akan berjalan pada port yang ditentukan di file `.env` .
 
     <br>
+    
 
 ## Cara Penggunaan
 
@@ -103,6 +104,17 @@
 7. Aplikasi akan berjalan di `http://localhost:PORT`, dengan PORT adalah nomor port yang ditentukan dalam file `.env`.
 
 <br>
+
+## Router
+### **user/admin/kendaraan/peminjaman/pengembalian**
+- get (  /user/ ) 
+- getById (/user/find/1)
+- post (/user/create)
+- put (/user/update)
+- delete (/user/delete)
+
+
+
 
 ## Hal Yang Berkaitan
 

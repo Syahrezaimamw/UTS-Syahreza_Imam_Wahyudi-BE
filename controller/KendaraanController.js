@@ -1,6 +1,7 @@
 import { where } from "sequelize"
 import { response } from "../message/response.js"
 import Kendaraan from "../models/KendaraanModels.js"
+
 export const getAllKendaraan=async(req,res)=>{
     try{
         const data = await Kendaraan.findAll()

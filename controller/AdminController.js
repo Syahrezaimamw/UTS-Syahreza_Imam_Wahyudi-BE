@@ -22,6 +22,7 @@ export const getAllAdminById=async(req,res)=>{
     }
 
 }
+
 export const createAdmin=async(req,res)=>{
     try{
         const {nama,email,password}=req.body
@@ -32,6 +33,7 @@ export const createAdmin=async(req,res)=>{
     }
 
 }
+
 export const updateAdmin=async(req,res)=>{
     try{
         const {nama,email,password}=req.body
