@@ -28,15 +28,15 @@ const Pengembalian = db.define(
 )
 
 
-Peminjaman.hasMany(Pengembalian,{
-    onDelete:'CASCADE',
-    onUpdate:'CASCADE',
+Peminjaman.hasMany(Pengembalian, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
 })
 
-Pengembalian.belongsTo(Peminjaman,{
+Pengembalian.belongsTo(Peminjaman, {
     foreignKey: 'PeminjamanId',
-    onDelete:'CASCADE',
-    onUpdate:'CASCADE',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
 })
 
 

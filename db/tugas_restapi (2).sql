@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 09 Sep 2024 pada 08.35
+-- Waktu pembuatan: 12 Sep 2024 pada 22.08
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `nama`, `email`, `password`, `createdAt`, `updatedAt`) VALUES
-(1, 'Jidan', 'Jidan@gmail.com', 'kominfo124', '2024-09-09 06:23:13', '2024-09-09 06:23:13');
+(1, 'Jidan', 'Jidan@gmail.com', 'kominfo124', '2024-09-10 06:47:35', '2024-09-10 06:47:35');
 
 -- --------------------------------------------------------
 
@@ -60,6 +60,7 @@ CREATE TABLE `kendaraan` (
   `tipe` varchar(255) NOT NULL,
   `warna` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -68,9 +69,10 @@ CREATE TABLE `kendaraan` (
 -- Dumping data untuk tabel `kendaraan`
 --
 
-INSERT INTO `kendaraan` (`id`, `nama`, `merk`, `nomer_plat`, `tahun_pembuatan`, `kategori`, `harga`, `tipe`, `warna`, `gambar`, `createdAt`, `updatedAt`) VALUES
-(1, 'astrea', 'honda', 'B 1456 CI', 2002, 'sepeda motor', 800000, 'Astrea 700', 'hitam', 'https://img4.icarcdn.com/851531/prev-desktop_10-motor-honda-astrea-yang-pernah-dijual-di-indonesia-mulai-astrea-700-sampai-legenda-2-135158_000000851531_befd901e_4c61_4078_b5d5_00eeaeb36ac9.jpg', '2024-09-09 06:23:13', '2024-09-09 06:23:13'),
-(2, 'civic', 'honda', 'AD 5664 MWQ', 2018, 'mobil', 2000000, 'R', 'merah', 'https://img5.icarcdn.com/1203436/gallery_used-car-mobil123-honda-civic-type-r-hatchback-indonesia_1203436_t34TSEVBbgfY396Ru7fkkp.jpg?smia=xTM', '2024-09-09 06:23:13', '2024-09-09 06:23:13');
+INSERT INTO `kendaraan` (`id`, `nama`, `merk`, `nomer_plat`, `tahun_pembuatan`, `kategori`, `harga`, `tipe`, `warna`, `gambar`, `status`, `createdAt`, `updatedAt`) VALUES
+(1, 'Astrea', 'honda', 'B 1456 CI', 2002, 'sepeda motor', 30000, 'Astrea 700', 'hitam', 'https://img4.icarcdn.com/851531/prev-desktop_10-motor-honda-astrea-yang-pernah-dijual-di-indonesia-mulai-astrea-700-sampai-legenda-2-135158_000000851531_befd901e_4c61_4078_b5d5_00eeaeb36ac9.jpg', 1, '2024-09-10 06:47:35', '2024-09-10 06:47:35'),
+(2, 'Civic', 'honda', 'AD 5664 MWQ', 2018, 'mobil', 2000000, 'R', 'merah', 'https://img5.icarcdn.com/1203436/gallery_used-car-mobil123-honda-civic-type-r-hatchback-indonesia_1203436_t34TSEVBbgfY396Ru7fkkp.jpg?smia=xTM', 0, '2024-09-10 06:47:35', '2024-09-10 06:47:35'),
+(3, 'nMax', 'yamaha', 'B 2312 lM', 2018, 'sepeda motor', 500000, 'Turbo', 'hitam', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqS-e1qHZ-g1-MMCrMC_SEC9La_Ej281Lh0g&s', 1, '2024-09-10 06:47:35', '2024-09-12 20:06:43');
 
 -- --------------------------------------------------------
 
@@ -96,8 +98,9 @@ CREATE TABLE `peminjaman` (
 --
 
 INSERT INTO `peminjaman` (`id`, `tanggal_peminjaman`, `tanggal_pengembalian`, `total_harga`, `status`, `createdAt`, `updatedAt`, `AdminId`, `UserId`, `KendaraanId`) VALUES
-(1, '2024-03-02 00:00:00', '2024-03-05 00:00:00', 240000, 0, '2024-09-09 06:23:13', '2024-09-09 06:23:13', 1, 1, 1),
-(2, '2024-03-02 00:00:00', '2024-03-04 00:00:00', 4000000, 1, '2024-09-09 06:23:13', '2024-09-09 06:23:13', 1, 1, 2);
+(1, '2024-03-01 00:00:00', '2024-03-03 00:00:00', 90000, 0, '2024-09-10 06:47:35', '2024-09-10 06:47:35', 1, 1, 1),
+(2, '2024-03-02 00:00:00', '2024-03-04 00:00:00', 400000, 1, '2024-09-10 06:47:35', '2024-09-10 06:47:35', 1, 1, 2),
+(3, '2024-03-01 00:00:00', '2024-03-03 00:00:00', 150000, 0, '2024-09-12 20:05:40', '2024-09-12 20:06:43', 1, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -120,7 +123,8 @@ CREATE TABLE `pengembalian` (
 --
 
 INSERT INTO `pengembalian` (`id`, `tanggal_dikembalikan`, `denda`, `kondisi`, `createdAt`, `updatedAt`, `PeminjamanId`) VALUES
-(1, '2024-03-05 00:00:00', 0, 'baik seperti semula', '2024-09-09 06:23:13', '2024-09-09 06:23:13', 1);
+(1, '2024-03-05 00:00:00', 0, 'baik seperti semula', '2024-09-10 06:47:35', '2024-09-10 06:47:35', 1),
+(2, '2024-03-05 00:00:00', 0, 'baik seperti semula', '2024-09-12 20:06:43', '2024-09-12 20:06:43', 3);
 
 -- --------------------------------------------------------
 
@@ -144,7 +148,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `telephone`, `email`, `alamat`, `no_ktp`, `createdAt`, `updatedAt`) VALUES
-(1, 'Danish', '089765465467', 'Danishgmail.com', 'Gg Rais, Pamulang, Tangerang Selatan', 6777493, '2024-09-09 06:23:13', '2024-09-09 06:23:13');
+(1, 'Danish', '089765465467', 'Danishgmail.com', 'Gg Rais, Pamulang, Tangerang Selatan', 6777493, '2024-09-10 06:47:35', '2024-09-10 06:47:35');
 
 --
 -- Indexes for dumped tables
@@ -198,19 +202,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `kendaraan`
 --
 ALTER TABLE `kendaraan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`

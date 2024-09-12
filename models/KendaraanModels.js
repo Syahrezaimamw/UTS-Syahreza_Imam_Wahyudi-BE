@@ -41,8 +41,12 @@ const Kendaraan = db.define(
         type: DataTypes.STRING,
         allowNull: false,
     },
-    gambar:{
+    gambar: {
         type: DataTypes.STRING,
+        allowNull: false,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
     }
 },
@@ -52,15 +56,15 @@ const Kendaraan = db.define(
 )
 
 
-Kendaraan.hasOne(Peminjaman,{
-    onDelete:'CASCADE',
-    onUpdate:'CASCADE',
+Kendaraan.hasOne(Peminjaman, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
 })
 
-Peminjaman.belongsTo(Kendaraan,{
+Peminjaman.belongsTo(Kendaraan, {
     foreignKey: 'KendaraanId',
-    onDelete:'CASCADE',
-    onUpdate:'CASCADE',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
 })
 
 export default Kendaraan
