@@ -21,7 +21,9 @@
   - **Delete**: Hapus USer dari sistem.
 
 - **CRUD Admin**: 
-  - **Create**: Daftarkan Admin baru dengan informasi lengkap.
+  - **Register**: Daftarkan Admin baru dengan informasi lengkap.
+  - **login**: Admin melakukan login dengan email dan password.
+  - **logout**: Admin melakukan logout.
   - **Read**: Ambil detail Admin atau daftar semua Admin.
   - **Update**: Perbarui informasi Admin yang sudah terdaftar.
   - **Delete**: Hapus Admin dari sistem.
@@ -77,7 +79,28 @@
     ```bash
     npm i sequelize
     ```
-6. **nodemon**
+6. **bcrypt**
+
+    Untuk melakukan hash dan compare
+
+    ```bash
+    npm i bcrypt
+    ```
+7. **jsonwebtoken**
+
+    untuk melakukan pembuatan dan fungsi dengan token
+
+    ```bash
+    npm i jsonwebtoken
+    ```
+8. **cookie-parser**
+
+    untuk melakukan parser terhadap data cookie
+
+    ```bash
+    npm i cookie-parser
+    ```
+9. **nodemon**
 
     jalankan dengan mengetikan perintah (nodemon namaFile)
 
@@ -105,6 +128,14 @@
 
 <br>
 
+## NOTES
+
+1. register pada admin memerlukan `confirmasi password`.
+2. path `/admin/` dan `/admin/find/{id}`  memerlukan token untuk akses.
+
+
+<br>
+
 ## Router
 ### **user/admin/kendaraan/peminjaman/pengembalian**
 - get (  /user/ ) 
@@ -121,14 +152,14 @@
 Beberapa Contoh Gambar Yang Berkaitan Terkait Projek REST FULL API Perpustakaan
 
 - **Class Diagram**
-<img src="./image/classdiagram.png" />
+<img src="./image/classdgbr.png" />
 
 - **ERD (Entity Relationship Diagram)**
-<img src="./image/erdSEWA.png" />
+<img src="./image/erdbr.png" />
 
 
 - **Relasi Table**
-<img src="./image/relasi.png" />
+<img src="./image/relasibr.png" />
 
 <br>
 

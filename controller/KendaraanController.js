@@ -5,7 +5,7 @@ import Kendaraan from "../models/KendaraanModels.js"
 export const getAllKendaraan = async (req, res) => {
     try {
         const data = await Kendaraan.findAll()
-        response(200, res, data, 'mengambil seluruh data Kendaraan')
+        response(200, res, 'mengambil seluruh data Kendaraan', data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -16,7 +16,7 @@ export const getAllKendaraanById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await Kendaraan.findByPk(id)
-        response(200, res, data, `mengambil data berdasarkan id (${id})`)
+        response(200, res, `mengambil data berdasarkan id (${id})`, data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -26,7 +26,7 @@ export const createKendaraan = async (req, res) => {
     try {
         const { nama, merk, nomer_plat, tahun_pembuatan, kategori, harga, tipe, warna, gambar } = req.body
         const createData = await Kendaraan.create({ nama, merk, nomer_plat, tahun_pembuatan, kategori, harga, tipe, warna, gambar, status: true })
-        response(201, res, createData, 'data ditambahkan')
+        response(201, res, 'data ditambahkan')
     } catch (err) {
         response(500, res, err.message)
     }

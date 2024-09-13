@@ -1,11 +1,10 @@
-import { where } from "sequelize"
 import { response } from "../message/response.js"
 import User from "../models/UserModels.js"
 
 export const getAllUser = async (req, res) => {
     try {
         const data = await User.findAll()
-        response(200, res, data, 'mengambil seluruh data User')
+        response(200, res, 'mengambil seluruh data User', data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -16,7 +15,7 @@ export const getAllUserById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await User.findByPk(id)
-        response(200, res, data, `mengambil data berdasarkan id (${id})`)
+        response(200, res, `mengambil data berdasarkan id (${id})`, data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -26,7 +25,7 @@ export const createUser = async (req, res) => {
     try {
         const { nama, telephone, email, alamat, no_ktp } = req.body
         const createData = await User.create({ nama, telephone, email, alamat, no_ktp })
-        response(201, res, createData, 'data ditambahkan')
+        response(201, res, 'data ditambahkan')
     } catch (err) {
         response(500, res, err.message)
     }

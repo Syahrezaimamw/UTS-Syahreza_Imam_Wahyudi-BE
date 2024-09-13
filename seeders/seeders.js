@@ -3,18 +3,19 @@ import Admin from "../models/AdminModels.js"
 import Kendaraan from "../models/KendaraanModels.js"
 import Peminjaman from "../models/PeminjamanModels.js"
 import Pengembalian from "../models/PengembalianModels.js"
+import { hashData } from "../utils/bycrptData.js"
 const createSeeder = async () => {
     const user = await User.create({
         nama: 'Danish',
         telephone: '089765465467',
-        email: 'Danishgmail.com',
+        email: 'Danish@gmail.com',
         alamat: 'Gg Rais, Pamulang, Tangerang Selatan',
         no_ktp: 6777493,
     })
     const admin = await Admin.create({
         nama: "Jidan",
         email: 'Jidan@gmail.com',
-        password: 'kominfo124'
+        password:await hashData('kominfo223')
     })
     const kendaraan1 = await Kendaraan.create({
         nama: 'Astrea',

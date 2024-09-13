@@ -28,7 +28,7 @@ const Pengembalian = db.define(
 )
 
 
-Peminjaman.hasMany(Pengembalian, {
+Peminjaman.hasOne(Pengembalian, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
 })

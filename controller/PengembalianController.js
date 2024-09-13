@@ -39,7 +39,7 @@ const includePengembalian = () => {
 export const getAllPengembalian = async (req, res) => {
     try {
         const data = await Pengembalian.findAll(includePengembalian())
-        response(200, res, data, 'mengambil seluruh data Pengembalian')
+        response(200, res, 'mengambil seluruh data Pengembalian', data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -50,7 +50,7 @@ export const getAllPengembalianById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await Pengembalian.findByPk(id, includePengembalian())
-        response(200, res, data, `mengambil data berdasarkan id (${id})`)
+        response(200, res, `mengambil data berdasarkan id (${id})`, data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -60,7 +60,7 @@ export const createPengembalian = async (req, res) => {
     try {
         const { tanggal_dikembalikan, denda, kondisi, PeminjamanId } = req.body
         const createData = await Pengembalian.create({ tanggal_dikembalikan, denda, kondisi, PeminjamanId })
-        response(201, res, createData, 'data ditambahkan')
+        response(201, res, 'data ditambahkan')
 
         //? melakukan perubahan status pada peminjaman
         if (createData) {

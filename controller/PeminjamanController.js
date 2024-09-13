@@ -29,7 +29,7 @@ const includePeminjaman = () => {
 export const getAllPeminjaman = async (req, res) => {
     try {
         const data = await Peminjaman.findAll(includePeminjaman())
-        response(200, res, data, 'mengambil seluruh data Peminjaman')
+        response(200, res, 'mengambil seluruh data Peminjaman', data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -40,7 +40,7 @@ export const getAllPeminjamanById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await Peminjaman.findByPk(id, includePeminjaman())
-        response(200, res, data, `mengambil data berdasarkan id (${id})`)
+        response(200, res, `mengambil data berdasarkan id (${id})`, data)
     } catch (err) {
         response(500, res, err.message)
     }
@@ -51,7 +51,7 @@ export const createPeminjaman = async (req, res) => {
     try {
         const { tanggal_peminjaman, tanggal_pengembalian, total_harga, status, AdminId, UserId, KendaraanId } = req.body
         const createData = await Peminjaman.create({ tanggal_peminjaman, tanggal_pengembalian, total_harga, status, AdminId, UserId, KendaraanId, status: true })
-        response(201, res, createData, 'data ditambahkan')
+        response(201, res, 'data ditambahkan')
 
         //* mengubah status kendaraan menjadi false
         if (createData) {
