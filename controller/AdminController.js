@@ -25,7 +25,11 @@ export const getAllAdminById = async (req, res) => {
                 attributes: ['id', 'email', 'nama']
             }
         )
-        response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        if(data){
+            response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        }else{
+            response(200, res, `data tidak ada`,null )
+        }
     } catch (err) {
         response(500, res, err.message)
     }

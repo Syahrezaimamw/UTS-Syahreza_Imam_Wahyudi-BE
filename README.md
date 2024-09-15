@@ -149,7 +149,7 @@
 
 ## Hal Yang Berkaitan
 
-Beberapa Contoh Gambar Yang Berkaitan Terkait Projek REST FULL API Perpustakaan
+Beberapa Contoh Gambar Yang Berkaitan Terkait Projek REST FULL API Manajemen Peminjaman Kendaraan
 
 - **Class Diagram**
 <img src="./image/classdgbr.png" />

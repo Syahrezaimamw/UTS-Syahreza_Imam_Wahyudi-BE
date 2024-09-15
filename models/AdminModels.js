@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
 import Peminjaman from "./PeminjamanModels.js";
+
 const Admin = db.define(
     'Admin', {
     id: {

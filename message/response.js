@@ -9,9 +9,7 @@ export const response=(status,res,pesan,data)=>{
     :
     res.status(status).json(
         {
-            
             message:pesan
         }
     )
-
 }

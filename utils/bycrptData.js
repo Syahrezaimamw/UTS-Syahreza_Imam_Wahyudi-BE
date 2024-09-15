@@ -6,6 +6,7 @@ export const hashData = async (password) => {
     const result = await bcrypt.hash(password, salt)
     return result
 }
+
 export const compareData = async (dataInput, datahash) => {
     const result = await bcrypt.compare(dataInput, datahash)
     return result

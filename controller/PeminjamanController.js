@@ -40,7 +40,11 @@ export const getAllPeminjamanById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await Peminjaman.findByPk(id, includePeminjaman())
-        response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        if(data){
+            response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        }else{
+            response(200, res, `data tidak ada`,null )
+        }
     } catch (err) {
         response(500, res, err.message)
     }

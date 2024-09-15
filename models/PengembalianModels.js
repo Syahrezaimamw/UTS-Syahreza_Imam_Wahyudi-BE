@@ -18,7 +18,7 @@ const Pengembalian = db.define(
         allowNull: false,
     },
     kondisi: {
-        type: DataTypes.STRING, //dipinjam 
+        type: DataTypes.STRING,
         allowNull: false,
     },
 },
@@ -41,7 +41,7 @@ Pengembalian.belongsTo(Peminjaman, {
 
 
 
-// await User.sync({force :true})
+
 
 
 export default Pengembalian
