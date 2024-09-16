@@ -1,6 +1,6 @@
 import express from 'express'
 import { getAllAdmin,getAllAdminById, updateAdmin, deleteAdmin, registerAdmin, loginAdmin, logoutAdmin } from '../controller/AdminController.js'
-import { verifyToken } from '../verify/verifyToken.js'
+import { verifyToken } from '../middleware/verifyToken.js'
 import { refreshToken } from '../controller/refreshToken.js'
 const RouterAdmin=express.Router()
 
