@@ -28,6 +28,7 @@ export const getAllKendaraanById = async (req, res) => {
 }
 export const createKendaraan = async (req, res) => {
     try {
+        
         const { nama, merk, nomer_plat, tahun_pembuatan, kategori, harga, tipe, warna, gambar } = req.body
         const createData = await Kendaraan.create({ nama, merk, nomer_plat, tahun_pembuatan, kategori, harga, tipe, warna, gambar, status: true })
         response(201, res, 'data ditambahkan')

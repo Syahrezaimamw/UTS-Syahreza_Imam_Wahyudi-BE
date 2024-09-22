@@ -25,10 +25,10 @@ export const getAllAdminById = async (req, res) => {
                 attributes: ['id', 'email', 'nama']
             }
         )
-        if(data){
+        if (data) {
             response(200, res, `mengambil data berdasarkan id (${id})`, data)
-        }else{
-            response(200, res, `data tidak ada`,null )
+        } else {
+            response(200, res, `data tidak ada`, null)
         }
     } catch (err) {
         response(500, res, err.message)
@@ -67,19 +67,24 @@ export const deleteAdmin = async (req, res) => {
 
 export const registerAdmin = async (req, res) => {
     const { nama, email, password, confPassword } = req.body
-    if (password !== confPassword) return response(400, res, 'password dan confirm password tidak cocok')
-    const resultHash = await hashData(password)
-    try {
-        await Admin.create(
-            {
-                nama,
-                email,
-                password: resultHash
+    if (!nama || !email || !password || !confPassword) response(400,res,'pastikan semua terisi')
+    else {
+        if (password !== confPassword)response(400,res,'password dan confirm password tidak cocok') 
+        else {
+            const resultHash = await hashData(password)
+            try {
+                await Admin.create(
+                    {
+                        nama,
+                        email,
+                        password: resultHash
+                    }
+                )
+                response(201, res, 'Register Berhasil')
+            } catch (err) {
+                response(500, res, err.message)
             }
-        )
-        response(201, res, 'Register Berhasil')
-    } catch (err) {
-        response(500, res, err.message)
+        }
     }
 
 }
