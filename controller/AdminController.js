@@ -67,9 +67,9 @@ export const deleteAdmin = async (req, res) => {
 
 export const registerAdmin = async (req, res) => {
     const { nama, email, password, confPassword } = req.body
-    if (!nama || !email || !password || !confPassword) response(400,res,'pastikan semua terisi')
+    if (!nama || !email || !password || !confPassword) response(400, res, 'pastikan semua terisi')
     else {
-        if (password !== confPassword)response(400,res,'password dan confirm password tidak cocok') 
+        if (password !== confPassword) response(400, res, 'password dan confirm password tidak cocok')
         else {
             const resultHash = await hashData(password)
             try {
@@ -96,36 +96,46 @@ export const loginAdmin = async (req, res) => {
                 email: req.body.email
             }
         })
-        const math = await compareData(req.body.password, admin.password)
-        if (!math) response(400, res, 'password salah')
+        if (admin !== null) {
 
-        const adminId = admin.id
-        const nama = admin.nama
-        const email = admin.email
+            const math = await compareData(req.body.password, admin.password)
+            if (!math) response(400, res, 'password tidak sesuai dengan email')
 
-        //? payload
-        const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '15s'
-        })
-        const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
-            expiresIn: '1d'
-        })
 
-        //? simpan refresh token dalam database
-        await Admin.update({ refresh_token: refreshToken }, {
-            where: {
-                id: adminId
-            }
-        })
+                const adminId = admin.id
+                const nama = admin.nama
+                const email = admin.email
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
-        })
+                //? payload
+                const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
+                    expiresIn: '15s'
+                })
+                const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
+                    expiresIn: '1d'
+                })
 
-        res.json({ accessToken })
+                //? simpan refresh token dalam database
+                await Admin.update({ refresh_token: refreshToken }, {
+                    where: {
+                        id: adminId
+                    }
+                })
+
+                res.cookie('refreshToken', refreshToken, {
+                    httpOnly: true,
+                    maxAge: 24 * 60 * 60 * 1000,
+                    
+                })
+             
+
+                res.json({ accessToken })
+                console.log({accessToken})
+        } else {
+
+            response(500, res, 'Email Belum Terdaftar')
+        }
     } catch (err) {
-        response(500, res, err.message)
+        response(500, res, err)
 
     }
 }

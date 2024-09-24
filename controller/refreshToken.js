@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken'
 export const refreshToken = async (req, res) => {
     try {
         const rft = req.cookies.refreshToken
+        console.log(rft)
         if (!rft) res.status(401).json({ message: 'Unauthorized' })
 
         const admin = await Admin.findOne({
