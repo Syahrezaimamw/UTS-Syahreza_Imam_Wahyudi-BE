@@ -37,5 +37,5 @@ app.use('/pengembalian',RouterPengembalian)
 
 
 app.listen(port,()=>{
-    console.log(`aplikasi sudah berjalan di http://localhost:${port}`)
+    console.log(`aplikasi sudah berjalan di : http://localhost:${port}`)
 })
