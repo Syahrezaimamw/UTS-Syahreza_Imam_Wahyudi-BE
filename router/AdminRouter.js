@@ -4,8 +4,8 @@ import { verifyToken } from '../middleware/verifyToken.js'
 import { refreshToken } from '../controller/refreshToken.js'
 const RouterAdmin=express.Router()
 
-RouterAdmin.get('/', verifyToken, getAllAdmin)
-RouterAdmin.get('/find/:id',verifyToken,getAllAdminById)
+RouterAdmin.get('/', getAllAdmin)
+RouterAdmin.get('/find/:id',getAllAdminById)
 RouterAdmin.get('/token',refreshToken)
 
 RouterAdmin.post('/register',registerAdmin)
