@@ -159,3 +159,31 @@ export const logoutAdmin = async (req, res) => {
     res.clearCookie('refreshToken')
     response(200, res, 'berhasil logout')
 }
+
+
+
+export const loginAdminB = async (req, res) => {
+    try {
+        const admin = await Admin.findOne({
+            where: {
+                email: req.body.email
+            }
+        }
+    )
+        if (admin !== null) {
+            const math = await compareData(req.body.password, admin.password)
+            if (!math) {
+                response(400, res, 'password tidak sesuai dengan email')
+            }else{
+                response(200, res, 'Mengambil Id Admin',admin.id)
+            }
+
+        } else {
+
+            response(500, res, 'Email Belum Terdaftar')
+        }
+    } catch (err) {
+        response(500, res, err)
+
+    }
+}
