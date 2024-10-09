@@ -1,7 +1,7 @@
 # RESTFULL API KELOLA PEMINJAMAN KENDARAAN
 <br>
 
-## Berjalan di localhost `3100`
+## Berjalan http://localhost:3100/kendaraan/
 
 ## Deskripsi Projek 
 
