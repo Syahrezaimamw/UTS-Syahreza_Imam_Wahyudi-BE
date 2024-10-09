@@ -25,8 +25,8 @@ const createSeeder = async () => {
         kategori: 'sepeda motor',
         harga: 30000,
         tipe: 'Astrea 700',
-        warna: 'hitam',
-        gambar: 'https://img4.icarcdn.com/851531/prev-desktop_10-motor-honda-astrea-yang-pernah-dijual-di-indonesia-mulai-astrea-700-sampai-legenda-2-135158_000000851531_befd901e_4c61_4078_b5d5_00eeaeb36ac9.jpg',
+        warna: 'Hitam',
+        gambar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPz9HwPfN3Rfbm_e93OnCNYtQHCk6apMmmPBCBvGLCC8-bdzOmVTkCQNqIaDI8K5AGZi4&usqp=CAU',
         status: true
 
     })
@@ -36,10 +36,10 @@ const createSeeder = async () => {
         nomer_plat: 'AD 5664 MWQ',
         tahun_pembuatan: 2018,
         kategori: 'mobil',
-        harga: 2000000,
+        harga: 200000,
         tipe: 'R',
-        warna: 'merah',
-        gambar: 'https://img5.icarcdn.com/1203436/gallery_used-car-mobil123-honda-civic-type-r-hatchback-indonesia_1203436_t34TSEVBbgfY396Ru7fkkp.jpg?smia=xTM',
+        warna: 'Hitam',
+        gambar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlzLQpTFJLXzPxmp74LGdRBXcpHMmRWwb_XMkxJ-UXrGNLPuCTHA7t6USyI9jeGYSxjVo&usqp=CAU',
         status: false
     })
     const kendaraan3 = await Kendaraan.create({
@@ -48,10 +48,10 @@ const createSeeder = async () => {
         nomer_plat: 'B 2312 lM',
         tahun_pembuatan: 2018,
         kategori: 'sepeda motor',
-        harga: 500000,
+        harga: 50000,
         tipe: 'Turbo',
-        warna: 'hitam',
-        gambar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqS-e1qHZ-g1-MMCrMC_SEC9La_Ej281Lh0g&s',
+        warna: 'Merah',
+        gambar: 'https://sudmoto.be/wp-content/uploads/sites/8/2024_yam_g150_eu_rsh_stu_001_03-1.webp',
         status: true
     })
     const Peminjaman1 = await Peminjaman.create({

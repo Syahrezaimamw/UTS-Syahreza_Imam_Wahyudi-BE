@@ -99,37 +99,40 @@ export const loginAdmin = async (req, res) => {
         if (admin !== null) {
 
             const math = await compareData(req.body.password, admin.password)
-            if (!math) response(400, res, 'password tidak sesuai dengan email')
+            if (!math) {
+                response(400, res, 'password tidak sesuai dengan email')
+            }else{
 
-
+                
+                
                 const adminId = admin.id
                 const nama = admin.nama
                 const email = admin.email
 
-                //? payload
-                const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
-                    expiresIn: '15s'
-                })
-                const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
-                    expiresIn: '1d'
-                })
+            //? payload
+            const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
+                expiresIn: '1h'
+            })
+            const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
+                expiresIn: '1d'
+            })
 
-                //? simpan refresh token dalam database
-                await Admin.update({ refresh_token: refreshToken }, {
-                    where: {
-                        id: adminId
-                    }
-                })
+            //? simpan refresh token dalam database
+            await Admin.update({ refresh_token: refreshToken }, {
+                where: {
+                    id: adminId
+                }
+            })
+            
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 60 * 1000,
+                
+            })
+            
 
-                res.cookie('refreshToken', refreshToken, {
-                    httpOnly: true,
-                    maxAge: 24 * 60 * 60 * 1000,
-                    
-                })
-             
-
-                res.json({ accessToken })
-                console.log({accessToken})
+            res.json({ accessToken })
+        }
         } else {
 
             response(500, res, 'Email Belum Terdaftar')
@@ -169,13 +172,13 @@ export const loginAdminB = async (req, res) => {
                 email: req.body.email
             }
         }
-    )
+        )
         if (admin !== null) {
             const math = await compareData(req.body.password, admin.password)
             if (!math) {
                 response(400, res, 'password tidak sesuai dengan email')
-            }else{
-                response(200, res, 'Mengambil Id Admin',admin.id)
+            } else {
+                response(200, res, 'Mengambil Id Admin', admin.id)
             }
 
         } else {

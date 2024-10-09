@@ -2,10 +2,10 @@ import express from 'express'
 import { getAllAdmin,getAllAdminById, updateAdmin, deleteAdmin, registerAdmin, loginAdmin, logoutAdmin, loginAdminB } from '../controller/AdminController.js'
 import { verifyToken } from '../middleware/verifyToken.js'
 import { refreshToken } from '../controller/refreshToken.js'
-const RouterAdmin=express.Router()
+const RouterAdmin = express.Router()
 
 RouterAdmin.get('/', getAllAdmin)
-RouterAdmin.get('/find/:id',getAllAdminById)
+RouterAdmin.get('/find/:id',verifyToken,getAllAdminById)
 RouterAdmin.get('/token',refreshToken)
 
 RouterAdmin.post('/register',registerAdmin)
