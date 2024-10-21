@@ -102,9 +102,6 @@ export const loginAdmin = async (req, res) => {
             if (!math) {
                 response(400, res, 'password tidak sesuai dengan email')
             }else{
-
-                
-                
                 const adminId = admin.id
                 const nama = admin.nama
                 const email = admin.email
