@@ -14,7 +14,7 @@ export const verifyToken = async (req, res, next) => {
                 next()
             }
             else {
-                res.status(404, res, 'not found')
+                response(404, res, 'not found')
             }
 
         })
