@@ -22,7 +22,7 @@ export const refreshToken = async (req, res) => {
             const email = admin.email
             const accesTokenBaru = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn: '15s'
+                    expiresIn: '1h'
                 }
             )
             res.json({ accesTokenBaru })
