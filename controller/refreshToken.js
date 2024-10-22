@@ -28,7 +28,7 @@ export const refreshToken = async (req, res) => {
             res.json({ accesTokenBaru })
         })
     } catch (err) {
-
+        res.status(500).json(err)
     }
 
 }
