@@ -67,7 +67,7 @@ export const deleteAdmin = async (req, res) => {
 
 export const registerAdmin = async (req, res) => {
     const { nama, email, password, confPassword } = req.body
-    if (!nama || !email || !password || !confPassword) response(400, res, 'pastikan semua terisi')
+    if (!nama || !email || !password || !confPassword) response(400, res, 'Pastikan Mengisi Semua Data')
     else {
         if (password !== confPassword) response(400, res, 'password dan confirm password tidak cocok')
         else {
@@ -91,48 +91,64 @@ export const registerAdmin = async (req, res) => {
 
 export const loginAdmin = async (req, res) => {
     try {
-        const admin = await Admin.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
-        if (admin !== null) {
 
-            const math = await compareData(req.body.password, admin.password)
-            if (!math) {
-                response(400, res, 'password tidak sesuai dengan email')
-            }else{
-                const adminId = admin.id
-                const nama = admin.nama
-                const email = admin.email
 
-            //? payload
-            const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1h'
-            })
-            const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
-                expiresIn: '1d'
-            })
+        if (!req.body.email || !req.body.password) {
+            response(400, res, 'Pastikan Mengisi Semua Data')
 
-            //? simpan refresh token dalam database
-            await Admin.update({ refresh_token: refreshToken }, {
-                where: {
-                    id: adminId
-                }
-            })
-            
-            res.cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                maxAge: 24 * 60 * 60 * 1000,
-                
-            })
-            
-
-            res.json({ accessToken })
-        }
         } else {
 
-            response(500, res, 'Email Belum Terdaftar')
+            const admin = await Admin.findOne({
+                where: {
+                    email: req.body.email
+                }
+            })
+            if (admin !== null) {
+
+                const math = await compareData(req.body.password, admin.password)
+                if (!math) {
+                    response(400, res, 'password tidak sesuai dengan email')
+                } else {
+                    const adminId = admin.id
+                    const nama = admin.nama
+                    const email = admin.email
+
+                    //? payload
+                    const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
+                        expiresIn: '10s'
+                    })
+                    const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
+                        expiresIn: '1d'
+                    })
+
+                    //? simpan refresh token dalam database
+                    await Admin.update({ refresh_token: refreshToken }, {
+                        where: {
+                            id: adminId
+                        }
+                    })
+
+                    // res.cookie('refreshToken', refreshToken, {
+                    //     httpOnly: true,
+                    //     maxAge: 24 * 60 * 60 * 1000,
+
+                    // })
+                    res.cookie('refreshToken', refreshToken, {
+                        httpOnly: true,
+                        secure: false,
+                        maxAge: 24 * 60 * 60 * 1000,
+                        sameSite: 'None',
+                        // secure // atau 'lax', tergantung kebutuhan
+                    });
+
+
+
+                    res.status(200).json({ accessToken ,refreshToken})
+                }
+            } else {
+
+                response(500, res, 'Email Belum Terdaftar')
+            }
         }
     } catch (err) {
         response(500, res, err)

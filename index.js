@@ -3,7 +3,6 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import 'dotenv/config'
 import db from './utils/connection.js';
-//? import router
 import RouterAdmin from "./router/AdminRouter.js";
 import RouterUser from "./router/UserRouter.js";
 import RouterKendaraan from "./router/KendaraanRouter.js";
@@ -13,7 +12,10 @@ import RouterPengembalian from "./router/PengembalianRouter.js";
 const app = express()
 const port = process.env.PORT
 
-app.use(cors()) 
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials:true
+})) 
 
 app.use(express.json()) 
 

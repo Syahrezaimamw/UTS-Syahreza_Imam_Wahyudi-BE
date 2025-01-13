@@ -58,12 +58,17 @@ export const getAllPengembalianById = async (req, res) => {
     } catch (err) {
         response(500, res, err.message)
     }
-
+    
 }
 export const createPengembalian = async (req, res) => {
     try {
-        const { tanggal_dikembalikan, denda, kondisi, PeminjamanId } = req.body
-        const createData = await Pengembalian.create({ tanggal_dikembalikan, denda, kondisi, PeminjamanId })
+        if(!req.body.tanggal_dikembalikan || !req.body.kondisi){
+            response(400, res, 'Pastikan Semua Data Terisi')
+
+        }else{
+
+            const { tanggal_dikembalikan, denda, kondisi, PeminjamanId } = req.body
+            const createData = await Pengembalian.create({ tanggal_dikembalikan, denda, kondisi, PeminjamanId })
         response(201, res, 'data ditambahkan')
 
         //? melakukan perubahan status pada peminjaman
@@ -72,7 +77,7 @@ export const createPengembalian = async (req, res) => {
             const dataPeminjaman = data.dataValues
             const idKendaraan = dataPeminjaman.KendaraanId
 
-
+            
             if (data.status === true) {
 
                 const dataKendaraan = await Kendaraan.findByPk(idKendaraan)
@@ -81,7 +86,7 @@ export const createPengembalian = async (req, res) => {
                         id: PeminjamanId
                     }
                 })
-
+                
                 if (dataKendaraan.status === false) {
                     await Kendaraan.update({ ...dataKendaraan, status: true }, {
                         where: {
@@ -93,6 +98,7 @@ export const createPengembalian = async (req, res) => {
             }
         }
 
+    }
     } catch (err) {
         response(500, res, err.message)
     }

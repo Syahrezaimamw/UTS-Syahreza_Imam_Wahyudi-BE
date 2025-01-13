@@ -3,30 +3,42 @@ import jwt from 'jsonwebtoken'
 
 export const refreshToken = async (req, res) => {
     try {
-        const rft = req.cookies.refreshToken
+        // const rft = req.cookies.refreshToken
+        const rft = req.body.refreshToken
         console.log(rft)
-        if (!rft) res.status(401).json({ message: 'Unauthorized' })
+        if (!rft) {
 
-        const admin = await Admin.findOne({
-            where: {
-                refresh_token: rft
-            }
-        })
+            res.status(401).json({ message: 'Unauthorized' })
+        } else {
 
-        if (!admin) res.status(403)
 
-        jwt.verify(rft, process.env.REFRESH_TOKEN_SECRET, (err, decode) => {
-            if (err) res.status(403).json({ message: 'Unverification' })
-            const adminId = admin.id
-            const nama = admin.nama
-            const email = admin.email
-            const accesTokenBaru = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET,
-                {
-                    expiresIn: '1h'
+            const admin = await Admin.findOne({
+                where: {
+                    refresh_token: rft
                 }
-            )
-            res.json({ accesTokenBaru })
-        })
+            })
+
+            if (!admin) {
+
+                res.status(403).json({ message: "Tidak ada Admin" })
+            }
+            else {
+
+          
+            jwt.verify(rft, process.env.REFRESH_TOKEN_SECRET, (err, decode) => {
+                if (err) res.status(403).json({ message: 'Unverification' })
+                const adminId = admin.id
+                const nama = admin.nama
+                const email = admin.email
+                const accesTokenBaru = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET,
+                    {
+                        expiresIn: '10s'
+                    }
+                )
+                res.json({ accesTokenBaru })
+            })
+        }
+        }
     } catch (err) {
         res.status(500).json(err)
     }
