@@ -18,6 +18,10 @@ const Admin = db.define(
         type: DataTypes.STRING,
         allowNull: false,
     },
+    role: {
+        type: DataTypes.ENUM('Pemilik','Karyawan'),
+        allowNull: false,
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,

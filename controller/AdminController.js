@@ -40,8 +40,8 @@ export const getAllAdminById = async (req, res) => {
 
 export const updateAdmin = async (req, res) => {
     try {
-        const { nama, email, password } = req.body
-        await Admin.update({ nama, email, password }, {
+        const { nama, email,role, password } = req.body
+        await Admin.update({ nama, email,role, password }, {
             where: {
                 id: req.params.id
             }
@@ -66,8 +66,8 @@ export const deleteAdmin = async (req, res) => {
 }
 
 export const registerAdmin = async (req, res) => {
-    const { nama, email, password, confPassword } = req.body
-    if (!nama || !email || !password || !confPassword) response(400, res, 'Pastikan Mengisi Semua Data')
+    const { nama, email,role, password, confPassword } = req.body
+    if (!nama || !email || !password || !role || !confPassword) response(400, res, 'Pastikan Mengisi Semua Data')
     else {
         if (password !== confPassword) response(400, res, 'password dan confirm password tidak cocok')
         else {
@@ -77,6 +77,7 @@ export const registerAdmin = async (req, res) => {
                     {
                         nama,
                         email,
+                        role,
                         password: resultHash
                     }
                 )
@@ -112,12 +113,13 @@ export const loginAdmin = async (req, res) => {
                     const adminId = admin.id
                     const nama = admin.nama
                     const email = admin.email
+                    const role = admin.role
 
                     //? payload
-                    const accessToken = jwt.sign({ adminId, nama, email }, process.env.ACCESS_TOKEN_SECRET, {
-                        expiresIn: '10s'
+                    const accessToken = jwt.sign({ adminId, nama, email,role }, process.env.ACCESS_TOKEN_SECRET, {
+                        expiresIn: '1d'
                     })
-                    const refreshToken = jwt.sign({ adminId, nama, email }, process.env.REFRESH_TOKEN_SECRET, {
+                    const refreshToken = jwt.sign({ adminId, nama, email,role }, process.env.REFRESH_TOKEN_SECRET, {
                         expiresIn: '1d'
                     })
 

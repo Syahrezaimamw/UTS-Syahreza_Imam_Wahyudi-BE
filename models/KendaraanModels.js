@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
 import Peminjaman from "./PeminjamanModels.js";
+import Notification from "./NotificationModels.js";
 const Kendaraan = db.define(
     'Kendaraan', {
     id: {
@@ -26,7 +27,7 @@ const Kendaraan = db.define(
         allowNull: false
     },
     kategori: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Sepeda Motor', "Mobil","Pickup" ,"Sepeda"),
         allowNull: false,
     },
     harga: {
@@ -42,6 +43,10 @@ const Kendaraan = db.define(
         allowNull: false,
     },
     gambar: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    url: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -62,6 +67,16 @@ Kendaraan.hasOne(Peminjaman, {
 })
 
 Peminjaman.belongsTo(Kendaraan, {
+    foreignKey: 'KendaraanId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+Kendaraan.hasOne(Notification, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+
+Notification.belongsTo(Kendaraan, {
     foreignKey: 'KendaraanId',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',

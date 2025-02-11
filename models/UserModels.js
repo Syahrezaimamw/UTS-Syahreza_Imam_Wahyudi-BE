@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../utils/connection.js";
 import Peminjaman from "./PeminjamanModels.js";
-
+import Notification from "./NotificationModels.js";
 const User = db.define(
     'User', {
     id: {
@@ -30,6 +30,14 @@ const User = db.define(
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    gender: {
+        type: DataTypes.ENUM('Male',"Female"),
+        allowNull: false,
+    },
 
 },
     {
@@ -43,6 +51,16 @@ User.hasMany(Peminjaman, {
 })
 
 Peminjaman.belongsTo(User, {
+    foreignKey: 'UserId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+User.hasMany(Notification, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+})
+
+Notification.belongsTo(User, {
     foreignKey: 'UserId',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
