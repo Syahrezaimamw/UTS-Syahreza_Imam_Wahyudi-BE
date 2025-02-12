@@ -83,6 +83,41 @@ export const createPeminjaman = async (req, res) => {
     }
 
 }
+
+export const getAllPeminjamanByIdUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await Peminjaman.findAll({
+            where: { UserId:  id },
+            include: [
+                {
+                    model: Admin,
+                    as: 'Admin',
+                    required: true,
+                },
+                {
+                    model: User,
+                    as: 'User',
+                    required: true,
+                },
+                {
+                    model: Kendaraan,
+                    as: 'Kendaraan',
+                    required: true,
+                },
+            ]
+        });
+        if (data) {
+            response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        } else {
+            response(200, res, `data tidak ada`, null)
+        }
+    } catch (err) {
+        response(500, res, err.message)
+    }
+
+}
+
 export const updatePeminjaman = async (req, res) => {
     try {
         const { tanggal_peminjaman, tanggal_pengembalian, total_harga, status, AdminId, UserId, KendaraanId } = req.body

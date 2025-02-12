@@ -33,30 +33,58 @@ export const getAllNotificationById = async (req, res) => {
     try {
         const id = req.params.id
         const data = await Notification.findByPk(id, includeNotification())
-        if(data){
+        if (data) {
             response(200, res, `mengambil data berdasarkan id (${id})`, data)
-        }else{
-            response(200, res, `data tidak ada`,null )
+        } else {
+            response(200, res, `data tidak ada`, null)
         }
     } catch (err) {
         response(500, res, err.message)
     }
-    
+
+}
+export const getAllNotificationByIdUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await Notification.findAll({
+            where: { UserId:  id },
+            include:  [
+                {
+                    model: User,
+                    as: 'User',
+                    required: true,
+                },
+                {
+                    model: Kendaraan,
+                    as: 'Kendaraan',
+                    required: true,
+                },
+            ]
+        });
+        if (data) {
+            response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        } else {
+            response(200, res, `data tidak ada`, null)
+        }
+    } catch (err) {
+        response(500, res, err.message)
+    }
+
 }
 
 export const createNotification = async (req, res) => {
     try {
 
-        if(!req.body.tanggal_peminjaman || !req.body.tanggal_pengembalian || !req.body.UserId){
-            
+        if (!req.body.tanggal_peminjaman || !req.body.tanggal_pengembalian || !req.body.UserId) {
+
             response(400, res, 'Pastikan Semua Data Terisi')
         }
-        else{
-            const { tanggal_peminjaman, tanggal_pengembalian, total_harga, status,  UserId, KendaraanId } = req.body
-            const createData = await Notification.create({ tanggal_peminjaman, tanggal_pengembalian, total_harga, status,  UserId, KendaraanId, status: true })
+        else {
+            const { tanggal_peminjaman, tanggal_pengembalian, total_harga, status, UserId, KendaraanId } = req.body
+            const createData = await Notification.create({ tanggal_peminjaman, tanggal_pengembalian, total_harga, status, UserId, KendaraanId, status: true })
             response(201, res, 'data ditambahkan')
- 
-    }
+
+        }
     } catch (err) {
         response(500, res, err.message)
     }

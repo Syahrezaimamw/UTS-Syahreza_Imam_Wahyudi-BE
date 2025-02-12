@@ -7,7 +7,7 @@ export const getAllAdmin = async (req, res) => {
     try {
         const data = await Admin.findAll(
             {
-                attributes: ['id', 'email', 'nama']
+                attributes: ['id', 'email', 'nama','role']
             }
         )
         response(200, res, 'mengambil seluruh data admin', data)
@@ -73,7 +73,7 @@ export const registerAdmin = async (req, res) => {
         else {
             const resultHash = await hashData(password)
             try {
-                await Admin.create(
+               const dataA= await Admin.create(
                     {
                         nama,
                         email,
@@ -81,7 +81,7 @@ export const registerAdmin = async (req, res) => {
                         password: resultHash
                     }
                 )
-                response(201, res, 'Register Berhasil')
+                response(201, res, 'Register Berhasil',dataA)
             } catch (err) {
                 response(500, res, err.message)
             }
@@ -205,3 +205,4 @@ export const loginAdminB = async (req, res) => {
 
     }
 }
+

@@ -36,6 +36,48 @@ const includePengembalian = () => {
     }
 }
 
+export const getAllPengembalianByIdUser = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const data = await Pengembalian.findAll({
+            where: { '$Peminjaman.UserId$':  id },
+            include: [
+                {
+                    model: Peminjaman,
+                    as: 'Peminjaman',
+                    required: true,
+                    include: [
+                        {
+                            model: Admin,
+                            as: 'Admin',
+                            required: true,
+                        },
+                        {
+                            model: User,
+                            as: 'User',
+                            required: true,
+                        },
+                        {
+                            model: Kendaraan,
+                            as: 'Kendaraan',
+                            required: true,
+                        }
+                    ]
+                },
+    
+            ]
+        });
+        if (data) {
+            response(200, res, `mengambil data berdasarkan id (${id})`, data)
+        } else {
+            response(200, res, `data tidak ada`, null)
+        }
+    } catch (err) {
+        response(500, res, err.message)
+    }
+
+}
+
 export const getAllPengembalian = async (req, res) => {
     try {
         const data = await Pengembalian.findAll(includePengembalian())

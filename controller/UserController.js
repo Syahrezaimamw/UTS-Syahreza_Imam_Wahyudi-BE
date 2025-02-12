@@ -27,15 +27,15 @@ export const getAllUserById = async (req, res) => {
 }
 export const createUser = async (req, res) => {
     try {
-        if (!req.body.nama || !req.body.telephone || !req.body.email || !req.body.alamat || !req.body.no_ktp || !req.body.password || !req.body.gender) {
+        if (!req.body.nama || !req.body.telephone || !req.body.email || !req.body.alamat || !req.body.no_ktp || !req.body.password ) {
             response(400, res, 'Pastikan Semua Data Terisi')
 
         } else {
 
-            const { nama, telephone, email, alamat, no_ktp,password,gender } = req.body
-            const resultHash = await hashData(password,gender)
-            const createData = await User.create({ nama, telephone, email, alamat, no_ktp,password,gender:resultHash,gender })
-            response(201, res, 'data ditambahkan')
+            const { nama, telephone, email, alamat, no_ktp,password} = req.body
+            const resultHash = await hashData(password)
+            const createData = await User.create({ nama, telephone, email, alamat, no_ktp,password:resultHash })
+            response(201, res, 'data ditambahkan',createData)
         }
     } catch (err) {
         response(500, res, err.message)
@@ -44,11 +44,13 @@ export const createUser = async (req, res) => {
 }
 export const updateUser = async (req, res) => {
     try {
-        if (!req.body.nama || !req.body.telephone || !req.body.email || !req.body.alamat || !req.body.no_ktp || !req.body.password || !req.body.gender) {
+        if (!req.body.nama || !req.body.telephone || !req.body.email || !req.body.alamat || !req.body.no_ktp || !req.body.password ) {
             response(400, res, 'Pastikan Semua Data Terisi')
         } else {
-            const { nama, telephone, email, alamat, no_ktp,password,gender } = req.body
-            const data = await User.update({ nama, telephone, email, alamat, no_ktp,password,gender }, {
+            const { nama, telephone, email, alamat, no_ktp,password } = req.body
+            const resultHash = await hashData(password)
+
+            const data = await User.update({ nama, telephone, email, alamat, no_ktp,password:resultHash }, {
                 where: {
                     id: req.params.id
                 }
