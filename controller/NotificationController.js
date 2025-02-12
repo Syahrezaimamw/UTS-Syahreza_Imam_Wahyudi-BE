@@ -43,6 +43,40 @@ export const getAllNotificationById = async (req, res) => {
     }
 
 }
+
+export const getAllNotificationByStatus = async (req, res) => {
+    try {
+        const { status } = req.params; // Mengambil status dari parameter request
+
+        if (!['Diminta', 'Berhasil', 'Gagal'].includes(status)) {
+            return response(400, res, `Status tidak valid`, null);
+        }
+
+        const data = await Notification.findAll({
+            where: { status },
+            include: [
+                {
+                    model: User,
+                    as: 'User',
+                    required: true,
+                },
+                {
+                    model: Kendaraan,
+                    as: 'Kendaraan',
+                    required: true,
+                },
+            ]
+        });
+
+        if (data.length > 0) {
+            response(200, res, `Mengambil data dengan status (${status})`, data);
+        } else {
+            response(200, res, `Data dengan status (${status}) tidak ditemukan`, null);
+        }
+    } catch (err) {
+        response(500, res, err.message);
+    }
+};
 export const getAllNotificationByIdUser = async (req, res) => {
     try {
         const id = req.params.id;
@@ -71,7 +105,6 @@ export const getAllNotificationByIdUser = async (req, res) => {
     }
 
 }
-
 export const createNotification = async (req, res) => {
     try {
 
